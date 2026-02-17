@@ -1,0 +1,3303 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Tera Brain Co" />
+    <meta
+      name="keywords"
+      content="AI, neuroscience, computing, conference, Tera Brain"
+    />
+    <title>Tera Brain</title>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="logo.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom CSS for smoother transitions and styling */
+      :root {
+        --primary-color: #e7a23a; /* Gold Shade */
+        --primary-light: #e88720; /* Darker Gold Shade */
+        --secondary-color: #ecb048; /* Gold Shade */
+        --bg-light: #f9fafb; /* Gray-50 */
+        --bg-dark: #111827; /* Gray-900 */
+        --text-light: #1f2937; /* Gray-800 */
+        --text-dark: #f3f4f6; /* Gray-200 */
+      }
+
+      body {
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background-color: var(--bg-light);
+        color: var(--text-light);
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      h2 {
+        color: white !important;
+      }
+
+      /* Dynamic logo sizing - Made bigger */
+      #logo {
+        background-image: url("icture1.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: clamp(2rem, 10vw, 40rem); /* Bigger: 3-5rem (was 2-4rem) */
+        height: clamp(2rem, 10vw, 2rem); /* Bigger: 3-5rem (was 2-4rem) */
+        min-width: 2rem;
+        min-height: 2rem;
+      }
+      @media (max-width: 768px) {
+        #home {
+          background-attachment: scroll !important;
+        }
+      }
+      #home {
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("img/10.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+      #home-title {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Dark Mode Overrides */
+      body.dark {
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+      }
+
+      .dark .card {
+        background-color: #1f2937; /* Gray-800 */
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.5),
+          0 4px 6px -2px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-padding {
+        padding: 4rem 1rem;
+      }
+
+      .nav-link {
+        transition:
+          color 0.2s,
+          background-color 0.2s,
+          transform 0.2s;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      /* Responsive adjustments for section padding */
+      @media (min-width: 768px) {
+        .section-padding {
+          padding: 6rem 4rem;
+        }
+      }
+
+      /* Keyframe animation for subtle glow on the countdown */
+      @keyframes glow {
+        0%,
+        100% {
+          box-shadow: 0 0 5px var(--primary-light);
+        }
+        50% {
+          box-shadow: 0 0 15px var(--primary-color);
+        }
+      }
+
+      .countdown-digit {
+        animation: glow 3s ease-in-out infinite;
+      }
+
+      /* Animation for fade-in elements */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      /* Stagger animation for multiple elements */
+      .stagger-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .stagger-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .stagger-item:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .stagger-item:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      /* RTL Specific Styling */
+      [dir="rtl"] .text-left-rtl {
+        text-align: right;
+      }
+
+      [dir="rtl"] .text-right-rtl {
+        text-align: left;
+      }
+
+      /* Header Logo/Text alignment fix for RTL */
+      [dir="rtl"] .flex-row-rtl {
+        flex-direction: row-reverse;
+      }
+
+      /* Improved focus styles for accessibility */
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+      }
+
+      /* Loading animation */
+      @keyframes pulse-once {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .animate-pulse-once {
+        animation: pulse-once 2s ease-in-out;
+      }
+
+      /* Smooth scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Improved image loading */
+      img {
+        transition: opacity 0.3s;
+      }
+
+      img[data-src] {
+        opacity: 0;
+      }
+
+      img.loaded {
+        opacity: 1;
+      }
+
+      /* Progress bar for scroll */
+      #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        z-index: 100;
+        transition: width 0.1s;
+      }
+
+      /* Professional gradient backgrounds */
+      .gradient-bg {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+      }
+
+      /* Enhanced card hover effects */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Professional typography improvements */
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 2rem;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        bottom: -10px;
+        left: 0;
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: 2px;
+      }
+
+      [dir="rtl"] .section-title::after {
+        left: auto;
+        right: 0;
+      }
+
+      /* Professional button styles */
+      .btn-primary {
+        background: linear-gradient(
+          to right,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: all 0.5s;
+      }
+
+      .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Sponsors Marquee Animation - Fixed for RTL */
+      .sponsors-container {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        padding: 2rem 0;
+      }
+
+      .sponsors-track {
+        display: flex;
+        width: max-content;
+        animation: scroll 40s linear infinite;
+      }
+
+      [dir="rtl"] .sponsors-track {
+        animation: scroll-rtl 40s linear infinite;
+      }
+
+      .sponsor-item {
+        flex-shrink: 0;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.7;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      .sponsor-item:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+
+      .sponsor-item img {
+        max-height: 60px;
+        max-width: 180px;
+        object-fit: contain;
+        filter: grayscale(30%);
+        transition: filter 0.3s ease;
+      }
+
+      .sponsor-item:hover img {
+        filter: grayscale(0%);
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes scroll-rtl {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(50%);
+        }
+      }
+
+      /* Pause animation on hover */
+      .sponsors-container:hover .sponsors-track {
+        animation-play-state: paused;
+      }
+
+      /* Gradient fade effect on edges */
+      .sponsors-container::before,
+      .sponsors-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 100px;
+        height: 100%;
+        z-index: 2;
+      }
+
+      .sponsors-container::before {
+        left: 0;
+        background: linear-gradient(
+          to right,
+          rgba(249, 250, 251, 1),
+          rgba(249, 250, 251, 0)
+        );
+      }
+
+      .sponsors-container::after {
+        right: 0;
+        background: linear-gradient(
+          to left,
+          rgba(249, 250, 251, 1),
+          rgba(249, 250, 251, 0)
+        );
+      }
+
+      [dir="rtl"] .sponsors-container::before {
+        left: auto;
+        right: 0;
+        background: linear-gradient(
+          to left,
+          rgba(249, 250, 251, 1),
+          rgba(249, 250, 251, 0)
+        );
+      }
+
+      [dir="rtl"] .sponsors-container::after {
+        right: auto;
+        left: 0;
+        background: linear-gradient(
+          to right,
+          rgba(249, 250, 251, 1),
+          rgba(249, 250, 251, 0)
+        );
+      }
+
+      .dark .sponsors-container::before {
+        background: linear-gradient(
+          to right,
+          rgba(17, 24, 39, 1),
+          rgba(17, 24, 39, 0)
+        );
+      }
+
+      .dark .sponsors-container::after {
+        background: linear-gradient(
+          to left,
+          rgba(17, 24, 39, 1),
+          rgba(17, 24, 39, 0)
+        );
+      }
+
+      .dark[dir="rtl"] .sponsors-container::before {
+        background: linear-gradient(
+          to left,
+          rgba(17, 24, 39, 1),
+          rgba(17, 24, 39, 0)
+        );
+      }
+
+      .dark[dir="rtl"] .sponsors-container::after {
+        background: linear-gradient(
+          to right,
+          rgba(17, 24, 39, 1),
+          rgba(17, 24, 39, 0)
+        );
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .sponsor-item {
+          padding: 0 1rem;
+        }
+
+        .sponsor-item img {
+          max-height: 40px;
+          max-width: 120px;
+        }
+
+        .sponsors-container::before,
+        .sponsors-container::after {
+          width: 50px;
+        }
+      }
+
+      /* Speaker visibility classes */
+      .speaker-hidden {
+        display: none;
+      }
+
+      .speaker-visible {
+        display: block;
+      }
+
+      /* Special styling for memorial speaker */
+      .memorial-speaker {
+        filter: grayscale(100%);
+        opacity: 0.8;
+      }
+
+      /* Text truncation for long content */
+      .text-truncate {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      .text-expanded {
+        -webkit-line-clamp: unset;
+      }
+
+      /* Header banner styling */
+      .header-banner {
+        background: linear-gradient(135deg, #eec861, #c1790d);
+        color: white;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        overflow: hidden;
+        position: relative;
+      }
+
+      @media (min-width: 768px) {
+        .header-banner {
+          font-size: 1rem;
+          padding: 0.75rem 1rem;
+        }
+      }
+
+      /* Banner text animation */
+      .banner-text-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-banner 30s linear infinite;
+      }
+
+      [dir="rtl"] .banner-text-track {
+        animation: scroll-banner-rtl 30s linear infinite;
+      }
+
+      @keyframes scroll-banner {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes scroll-banner-rtl {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(50%);
+        }
+      }
+
+      /* Gallery grid */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      @media (max-width: 640px) {
+        .gallery-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+
+      /* FAQ styling */
+      .faq-item {
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .dark .faq-item {
+        border-bottom: 1px solid #374151;
+      }
+
+      /* Tera text yellow styling */
+      .tera-yellow {
+        color: #ffa600; /* Bright yellow */
+      }
+
+      /* Countdown center alignment */
+      .countdown-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      @media (max-width: 768px) {
+        .countdown-center {
+          padding: 0.5rem 0;
+        }
+      }
+
+      /* Arabic text styling */
+      .arabic-text {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        margin-top: 1rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      @media (max-width: 768px) {
+        .arabic-text {
+          font-size: 1rem;
+          padding: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body id="body">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Header Banner -->
+    <div class="header-banner" id="header-banner">
+      <div class="banner-text-track">
+        <span
+          id="banner-text"
+          data-en="A generation that thinks... creates... and leads change. Tera Brain is a youth group empowering youth"
+          data-ar="جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين الشباب"
+          >جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين
+          الشباب</span
+        >
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span
+          id="banner-text-duplicate"
+          data-en="A generation that thinks... creates... and leads change. Tera Brain is a youth group empowering youth"
+          data-ar="جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين الشباب "
+          >جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين
+          الشباب</span
+        >
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span
+          id="banner-text-duplicate"
+          data-en="A generation that thinks... creates... and leads change. Tera Brain is a youth group empowering youth"
+          data-ar="جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين الشباب "
+          >جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين
+          الشباب</span
+        >
+        &nbsp; &nbsp; &nbsp; &nbsp;
+        <span
+          id="banner-text-duplicate"
+          data-en="A generation that thinks... creates... and leads change. Tera Brain is a youth group empowering youth"
+          data-ar="جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين الشباب "
+          >جيل يفكر… يصنع… ويقود التغيير. تيرا برين مجموعة شبابية لتمكين
+          الشباب</span
+        >
+      </div>
+    </div>
+
+    <!-- Register Now URL -->
+    <a
+      id="register-link"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSfBFoR1u2Ekrg8C745fJZj8ST8TR-pi5GnPOy_wVFJ_KwgQMw/viewform"
+      class="hidden"
+      aria-label="Register for Tera Brain Conference"
+    ></a>
+
+    <!-- Header & Navigation (Sticky) -->
+    <header
+      id="main-header"
+      class="sticky top-0 z-50 shadow-lg bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm transition-colors duration-300"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center flex-row-rtl"
+      >
+        <!-- Logo & Title -->
+        <div class="flex items-center space-x-3 flex-row-rtl">
+          <svg
+            id="logo"
+            class="text-indigo-600 dark:text-e7a23a transition-colors duration-300 transform hover:rotate-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          ></svg>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav
+          class="hidden md:flex items-center space-x-6 flex-row-rtl"
+          aria-label="Main navigation"
+        >
+          <a
+            href="#home"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="Home"
+            data-ar="الرئيسية"
+            >Home</a
+          >
+          <a
+            href="#about-us"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="About Us"
+            data-ar="من نحن"
+            >About Us</a
+          >
+          <a
+            href="#goals-vision"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="Our work"
+            data-ar="اعمالنا"
+          >
+            Our work</a
+          >
+          <a
+            href="#our-speakers"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="Our Speakers"
+            data-ar="متحدثونا"
+            >Our Speakers</a
+          >
+          <a
+            href="#our-sponsors"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="Our Sponsors"
+            data-ar="رعاتنا"
+            >Our Sponsors</a
+          >
+          <a
+            href="#faq"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="FAQ"
+            data-ar="الأسئلة الشائعة"
+            >FAQ</a
+          >
+          <a
+            href="#gallery"
+            class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-e7a23a"
+            data-en="Gallery"
+            data-ar="المعرض"
+            >Gallery</a
+          >
+        </nav>
+
+        <!-- Controls and Register Button -->
+        <div class="flex items-center space-x-4 flex-row-rtl">
+          <!-- Language Toggle -->
+          <button
+            id="lang-toggle"
+            class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            title="Toggle Language"
+            aria-label="Toggle Language"
+          >
+            <span
+              id="lang-text"
+              class="font-semibold text-sm"
+              data-en="AR"
+              data-ar="EN"
+              >AR</span
+            >
+          </button>
+
+          <!-- Dark/Light Mode Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            title="Toggle Dark/Light Mode"
+            aria-label="Toggle Dark/Light Mode"
+          >
+            <!-- Moon Icon (for Light Mode) -->
+            <svg
+              id="moon-icon"
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+            <!-- Sun Icon (for Dark Mode) -->
+            <svg
+              id="sun-icon"
+              class="w-6 h-6 hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Register Now Button -->
+          <button
+            id="register-nav-btn"
+            onclick="document.getElementById('register-link').click()"
+            class="px-4 py-2 btn-primary text-white font-bold rounded-lg shadow-lg transition duration-300 hidden md:inline-block"
+            data-en="Register Now"
+            data-ar="سجل الآن"
+          >
+            Register Now
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            title="Open Menu"
+            aria-label="Open Menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden px-4 pt-2 pb-4 space-y-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm transition-all duration-300"
+        role="menu"
+      >
+        <a
+          href="#home"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="Home"
+          data-ar="الرئيسية"
+          role="menuitem"
+          >Home</a
+        >
+        <a
+          href="#about-us"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="About Us"
+          data-ar="من نحن"
+          role="menuitem"
+          >About Us</a
+        >
+        <a
+          href="#goals-vision"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="Goals & Vision"
+          data-ar="الأهداف والرؤية"
+          role="menuitem"
+          >Goals & Vision</a
+        >
+        <a
+          href="#our-speakers"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="Our Speakers"
+          data-ar="متحدثونا"
+          role="menuitem"
+          >Our Speakers</a
+        >
+        <a
+          href="#our-sponsors"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="Our Sponsors"
+          data-ar="رعاتنا"
+          role="menuitem"
+          >Our Sponsors</a
+        >
+        <a
+          href="#faq"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="FAQ"
+          data-ar="الأسئلة الشائعة"
+          role="menuitem"
+          >FAQ</a
+        >
+        <a
+          href="#gallery"
+          class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800"
+          data-en="Gallery"
+          data-ar="المعرض"
+          role="menuitem"
+          >Gallery</a
+        >
+        <button
+          onclick="document.getElementById('register-link').click()"
+          class="w-full mt-4 px-4 py-2 btn-primary text-white font-bold rounded-lg shadow-lg transition duration-300"
+          data-en="Register Now"
+          data-ar="سجل الآن"
+          role="menuitem"
+        >
+          Register Now
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. Home / Countdown Section -->
+      <section
+        id="home"
+        class="section-padding text-white flex items-center justify-center min-h-screen"
+        aria-labelledby="home-title"
+      >
+        <div class="max-w-4xl mx-auto text-center">
+          <h1
+            id="home-title"
+            class="text-5xl md:text-6xl font-extrabold mb-6 transition duration-500 fade-in"
+            data-en=" <span class='tera-yellow'>Tera</span> Brain 3 Event 
+             Countdown"
+            data-ar="    مؤتمر <span class='tera-yellow'>Tera</span> Brain الثالث  "
+          >
+            Event Countdown
+          </h1>
+          <p
+            id="home-subtext"
+            class="mt-12 text-gray-200 countdown-center"
+            data-en="Countdown"
+            data-ar=" العد التنازلي"
+          >
+            <!-- Countdown Display -->
+          </p>
+
+          <div
+            id="countdown"
+            class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 mb-10 countdown-center"
+            aria-live="polite"
+          >
+            <!-- Day -->
+            <div
+              class="card p-4 md:p-8 bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl transform transition duration-300 countdown-digit stagger-item card-hover"
+            >
+              <div
+                id="days"
+                class="text-4xl md:text-6xl font-mono font-bold text-white"
+                aria-label="Days until event"
+              >
+                00
+              </div>
+              <div
+                id="days-label"
+                class="mt-2 text-lg md:text-xl font-medium text-gray-200"
+                data-en="Days"
+                data-ar="يوم"
+              >
+                Days
+              </div>
+            </div>
+            <!-- Hours -->
+            <div
+              class="card p-4 md:p-8 bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl transform transition duration-300 countdown-digit stagger-item card-hover"
+            >
+              <div
+                id="hours"
+                class="text-4xl md:text-6xl font-mono font-bold text-white"
+                aria-label="Hours until event"
+              >
+                00
+              </div>
+              <div
+                id="hours-label"
+                class="mt-2 text-lg md:text-xl font-medium text-gray-200"
+                data-en="Hours"
+                data-ar="ساعة"
+              >
+                Hours
+              </div>
+            </div>
+            <!-- Minutes -->
+            <div
+              class="card p-4 md:p-8 bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl transform transition duration-300 countdown-digit stagger-item card-hover"
+            >
+              <div
+                id="minutes"
+                class="text-4xl md:text-6xl font-mono font-bold text-white"
+                aria-label="Minutes until event"
+              >
+                00
+              </div>
+              <div
+                id="minutes-label"
+                class="mt-2 text-lg md:text-xl font-medium text-gray-200"
+                data-en="Minutes"
+                data-ar="دقيقة"
+              >
+                Minutes
+              </div>
+            </div>
+            <!-- Seconds -->
+            <div
+              class="card p-4 md:p-8 bg-white/10 backdrop-blur-sm rounded-xl shadow-2xl transform transition duration-300 countdown-digit stagger-item card-hover"
+            >
+              <div
+                id="seconds"
+                class="text-4xl md:text-6xl font-mono font-bold text-white"
+                aria-label="Seconds until event"
+              >
+                00
+              </div>
+              <div
+                id="seconds-label"
+                class="mt-2 text-lg md:text-xl font-medium text-gray-200"
+                data-en="Seconds"
+                data-ar="ثانية"
+              >
+                Seconds
+              </div>
+            </div>
+          </div>
+
+          <!-- Register Now Button -->
+          <button
+            onclick="document.getElementById('register-link').click()"
+            class="mt-6 px-10 py-4 btn-primary text-white font-bold text-xl rounded-full shadow-2xl animate-pulse-once"
+            data-en="Register Now"
+            data-ar="سجل الآن"
+          >
+            Register Now
+          </button>
+          <p
+            id="home-subtext"
+            class="mt-4 text-gray-200"
+            data-en="October 31, 2025 - Secure your spot today!"
+            data-ar="31 أكتوبر 2025 - احجز مقعدك اليوم!"
+          >
+            October 31, 2025 - Secure your spot today!
+          </p>
+
+          <!-- Added Arabic text -->
+          <p class="arabic-text text-gray-200 mt-6">
+            مكان واحد يجمع الإلهام، الريادة، التكنولوجيا، والتوظيف تحت سقف
+            واحد<br />
+            فعالية شبابية بتفتح أبواب جديدة للفرص، الأفكار، والتجارب.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. About Us Section -->
+      <section
+        id="about-us"
+        class="section-padding bg-white dark:bg-gray-900 transition-colors duration-300"
+        aria-labelledby="about-title"
+      >
+        <div class="max-w-7xl mx-auto">
+          <h2
+            id="about-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-10 text-left-rtl fade-in"
+            data-en="About Tera Brain"
+            data-ar="من نحن - تيرا برين"
+          >
+            About Tera Brain
+          </h2>
+
+          <!-- New Content with See More -->
+          <div class="mb-12 fade-in">
+            <div
+              class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 text-left-rtl text-truncate"
+              id="about-content"
+            >
+              <p
+                data-en="From a youth idea that started in 2017, Tera Brain has transformed into a group that seeks to build a conscious, creative, and proactive generation. We are a non-profit group that aims to empower Jordanian youth in the fields of entrepreneurship, creativity, technology, and leadership, through conferences, initiatives, and quality programs that make an impact on the ground."
+                data-ar="من فكرة شبابية بدأت عام 2017، تحوّلت Tera Brain إلى مجموعة تسعى لبناء جيل واعٍ، مبدع، ومبادر. نحن مجموعة غير ربحية تهدف إلى تمكين الشباب الأردني في مجالات الريادة، الإبداع، التكنولوجيا، والقيادة ، من خلال مؤتمرات، مبادرات، وبرامج نوعية تصنع الأثر على أرض الواقع."
+              >
+                من فكرة شبابية بدأت عام 2017، تحوّلت Tera Brain إلى مجموعة تسعى
+                لبناء جيل واعٍ، مبدع، ومبادر. نحن مجموعة غير ربقية تهدف إلى
+                تمكين الشباب الأردني في مجالات الريادة، الإبداع، التكنولوجيا،
+                والقيادة ، من خلال مؤتمرات، مبادرات، وبرامج نوعية تصنع الأثر على
+                أرض الواقع.
+              </p>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Who We Are"
+                data-ar="من نحن"
+              >
+                من نحن
+              </h3>
+              <p
+                data-en="Tera Brain, a non-profit youth group founded in 2017, aims to empower youth and enhance their spirit of entrepreneurship and creativity. Through specialized training programs, interactive workshops, and inspiring conferences like Tera Brain 1 and 2, we seek to create an incubating environment that stimulates youth to turn their ideas into implementable projects and qualifies them to enter the job market with confidence and efficiency. Over the years, we have worked to build a conscious and proactive youth community capable of keeping pace with rapid transformations, by focusing on the fields of technology, artificial intelligence, innovation, and sustainability. We believe that knowledge alone is not enough, so we combine it with practical application and direct communication with experts to give youth a real opportunity to learn and grow. Our vision is to prepare a productive, creative leadership generation capable of critical thinking and decision-making, and contributing to building a knowledge economy and a dynamic society that reflects Jordan's image as a regional center for creativity and excellence in the second centenary. Tera Brain is not just a temporary initiative, but a sustainable youth movement that believes that every young person has the ability to be a change-maker. From this belief, we work to support every promising idea and empower every real ambition to build a generation that makes an impact and draws a future worthy of its capabilities and aspirations."
+                data-ar="Tera Brain، مجموعة شبابية غير ربحية تأسست عام 2017، . بهدف تمكين الشباب، وتعزيز روح الريادة والإبداع لديهم. من خلال برامج تدريبية متخصصة، وورش عمل تفاعلية، ومؤتمرات ملهمة مثل Tera Brain 1، 2، نسعى إلى خلق بيئة حاضنة تُحفّز الشباب على تحويل أفكارهم إلى مشاريع قابلة للتطبيق، وتُؤهلهم للدخول إلى سوق العمل بثقة وكفاءة. على مدار السنوات، عملنا على بناء مجتمع شبابي واعٍ ومبادر، قادر على مواكبة التحولات المتسارعة، من خلال التركيز على مجالات التكنولوجيا، الذكاء الاصطناعي، الابتكار، والاستدامة. نؤمن بأن المعرفة وحدها لا تكفي، لذلك ندمجها بالتطبيق العملي، والتواصل المباشر مع أصحاب الخبرة، لإعطاء الشباب فرصة حقيقية للتعلم والنمو. رؤيتنا تتمثل في إعداد جيل قيادي، منتج، ومبدع، قادر على التفكير النقدي واتخاذ القرار، والمساهمة في بناء اقتصاد معرفي ومجتمع ديناميكي، يعكس صورة الأردن كمركز إقليمي للإبداع والتميّز في المئوية الثانية. Tera Brain ليست مجرد مبادرة مؤقتة، بل حركة شبابية مستدامة تؤمن بأن كل شاب يمتلك القدرة على أن يكون صانع تغيير. ومن هذا الإيمان، نعمل على دعم كل فكرة واعدة، وتمكين كل طموح حقيقي، لبناء جيل يُحدث الأثر، ويرسم مستقبلًا يليق بقدراته وطموحاته."
+              >
+                Tera Brain، مجموعة شبابية غير ربحية تأسست عام 2017، . بهدف تمكين
+                الشباب، وتعزيز روح الريادة والإبداع لديهم. من خلال برامج تدريبية
+                متخصصة، وورش عمل تفاعلية، ومؤتمرات ملهمة مثل Tera Brain 1، 2،
+                نسعى إلى خلق بيئة حاضنة تُحفّز الشباب على تحويل أفكارهم إلى
+                مشاريع قابلة للتطبيق، وتُؤهلهم للدخول إلى سوق العمل بثقة وكفاءة.
+                على مدار السنوات، عملنا على بناء مجتمع شبابي واعٍ ومبادر، قادر
+                على مواكبة التحولات المتسارعة، من خلال التركيز على مجالات
+                التكنولوجيا، الذكاء الاصطناعي، الابتكار، والاستدامة. نؤمن بأن
+                المعرفة وحدها لا تكفي، لذلك ندمجها بالتطبيق العملي، والتواصل
+                المباشر مع أصحاب الخبرة، لإعطاء الشباب فرصة حقيقية للتعلم
+                والنمو. رؤيتنا تتمثل في إعداد جيل قيادي، منتج، ومبدع، قادر على
+                التفكير النقدي واتخاذ القرار، والمساهمة في بناء اقتصاد معرفي
+                ومجتمع ديناميكي، يعكس صورة الأردن كمركز إقليمي للإبداع والتميّز
+                في المئوية الثانية. Tera Brain ليست مجرد مبادرة مؤقتة، بل حركة
+                شبابية مستدامة تؤمن بأن كل شاب يمتلك القدرة على أن يكون صانع
+                تغيير. ومن هذا الإيمان، نعمل على دعم كل فكرة واعدة، وتمكين كل
+                طموح حقيقي، لبناء جيل يُحدث الأثر، ويرسم مستقبلًا يليق بقدراته
+                وطموحاته.
+              </p>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Our Vision"
+                data-ar="رؤيتنا"
+              >
+                رؤيتنا
+              </h3>
+              <p
+                data-en="To become the most influential youth platform in empowering youth, promoting innovation, and establishing a culture of entrepreneurship at the regional level, by building a conscious, creative, and globally open generation capable of keeping pace with changes and creating a more sustainable and prosperous future."
+                data-ar="تصبح Tera Brain المنصة الشبابية الأكثر تأثيرًا في تمكين الشباب، وتعزيز الابتكار، وترسيخ ثقافة الريادة على مستوى المنطقة، من خلال بناء جيل واعٍ، مبدع، ومنفتح على العالم، قادر على مواكبة التغيرات وصنع مستقبل أكثر استدامة وازدهارًا."
+              >
+                تصبح Tera Brain المنصة الشبابية الأكثر تأثيرًا في تمكين الشباب،
+                وتعزيز الابتكار، وترسيخ ثقافة الريادة على مستوى المنطقة، من خلال
+                بناء جيل واعٍ، مبدع، ومنفتح على العالم، قادر على مواكبة التغيرات
+                وصنع مستقبل أكثر استدامة وازدهارًا.
+              </p>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Our Mission"
+                data-ar="الرسالة"
+              >
+                الرسالة
+              </h3>
+              <p
+                data-en="We believe that youth are the main driver of change and progress, so we work to provide them with the knowledge, skills, and practical tools that enable them to achieve their ambitions and contribute to building their societies and economies through an interactive environment that provides opportunities for learning, inspiration, and fruitful partnerships."
+                data-ar="نؤمن بأن الشباب هم المحرك الأساسي للتغيير والتقدم، لذلك نعمل على تزويدهم بالمعرفة، المهارات، والأدوات العملية التي تمكنهم من تحقيق طموحاتهم، والمساهمة في بناء مجتمعاتهم واقتصاداتهم من خلال بيئة تفاعلية توفر فرص التعلم، الإلهام، والشراكات المثمرة."
+              >
+                نؤمن بأن الشباب هم المحرك الأساسي للتغيير والتقدم، لذلك نعمل على
+                تزويدهم بالمعرفة، المهارات، والأدوات العملية التي تمكنهم من
+                تحقيق طموحاتهم، والمساهمة في بناء مجتمعاتهم واقتصاداتهم من خلال
+                بيئة تفاعلية توفر فرص التعلم، الإلهام، والشراكات المثمرة.
+              </p>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Our Values"
+                data-ar="قيمنا"
+              >
+                قيمنا
+              </h3>
+              <ul class="list-disc list-inside space-y-2">
+                <li
+                  data-en="Entrepreneurship: Because we believe in the ability of youth to innovate."
+                  data-ar="الريادة: لأننا نؤمن بقدرة الشباب على الابتكار."
+                >
+                  الريادة: لأننا نؤمن بقدرة الشباب على الابتكار.
+                </li>
+                <li
+                  data-en="Responsibility: Because change starts with each one of us."
+                  data-ar="المسؤولية: لأن التغيير يبدأ من كل واحد فينا."
+                >
+                  المسؤولية: لأن التغيير يبدأ من كل واحد فينا.
+                </li>
+                <li
+                  data-en="Teamwork: Because success is not made by one person."
+                  data-ar="العمل الجماعي: لأن النجاح لا يصنعه فرد."
+                >
+                  العمل الجماعي: لأن النجاح لا يصنعه فرد.
+                </li>
+                <li
+                  data-en="Transparency and Impact: Because we work with clarity and measure our results."
+                  data-ar="الشفافية والتأثير: لأننا نعمل بوضوح ونقيس نتائجنا."
+                >
+                  الشفافية والتأثير: لأننا نعمل بوضوح ونقيس نتائجنا.
+                </li>
+                <li
+                  data-en="Sustainability: Because our impact must remain continuous."
+                  data-ar="الاستدامة: لأن أثرنا لازم يضل مستمر."
+                >
+                  الاستدامة: لأن أثرنا لازم يضل مستمر.
+                </li>
+              </ul>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Our Goals"
+                data-ar="الأهداف"
+              >
+                الأهداف
+              </h3>
+              <ul class="list-disc list-inside space-y-2">
+                <li
+                  data-en="Empowering Jordanian youth in the fields of entrepreneurship, innovation and artificial intelligence."
+                  data-ar="تمكين الشباب الأردني في مجالات الريادة الابتكار والذكاء الاصطناعي."
+                >
+                  تمكين الشباب الأردني في مجالات الريادة الابتكار والذكاء
+                  الاصطناعي.
+                </li>
+                <li
+                  data-en="Creating an effective networking space between youth, companies and institutions."
+                  data-ar="خلق مساحة تشبيك فعّالة بين الشباب والشركات والمؤسسات."
+                >
+                  خلق مساحة تشبيك فعّالة بين الشباب والشركات والمؤسسات.
+                </li>
+                <li
+                  data-en="Highlighting the challenges and opportunities in the Jordanian labor market."
+                  data-ar="تسليط الضوء على التحديات والفرص في سوق العمل الأردني."
+                >
+                  تسليط الضوء على التحديات والفرص في سوق العمل الأردني.
+                </li>
+                <li
+                  data-en="Building a creative generation capable of making change."
+                  data-ar="بناء جيل مبدع وقادر على صنع التغيير."
+                >
+                  بناء جيل مبدع وقادر على صنع التغيير.
+                </li>
+              </ul>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Programs & Initiatives"
+                data-ar="برامجنا ومبادراتنا"
+              >
+                برامجنا ومبادراتنا
+              </h3>
+              <p
+                data-en="Over the past years, Tera Brain has launched a number of impactful community initiatives and programs, such as: Support a Student Initiative: Provided free video lessons through the Jo Academy platform for school students, and supported thousands of students during the pandemic. Youth Empowerment Programs: Specialized training in life skills, career skills and entrepreneurship. Tera Brain Conference 1. Tera Brain Conference 2. Our permanent goal is to combine thought, application, and opportunity."
+                data-ar="من خلال السنوات الماضية، أطلقت Tera Brain عدداً من المبادرات والبرامج المجتمعية المؤثرة، مثل: مبادرة ادعم طالب: وفّرت حصصاً مصوّرة مجانية عبر منصة جو أكاديمي لطلبة المدارس، وساهمت في دعم آلاف الطلبة أثناء الجائحة. برامج تمكين الشباب: تدريبات متخصصة في المهارات الحياتية والوظيفية وريادة الأعمال. مؤتمر تيرا برين 1. مؤتمر تيرا برين 2. هدفنا الدائم هو الجمع بين الفكر، التطبيق، والفرصة."
+              >
+                من خلال السنوات الماضية، أطلقت Tera Brain عدداً من المبادرات
+                والبرامج المجتمعية المؤثرة، مثل: مبادرة ادعم طالب: وفّرت حصصاً
+                مصوّرة مجانية عبر منصة جو أكاديمي لطلبة المدارس، وساهمت في دعم
+                آلاف الطلبة أثناء الجائحة. برامج تمكين الشباب: تدريبات متخصصة في
+                المهارات الحياتية والوظيفية وريادة الأعمال. مؤتمر تيرا برين 1.
+                مؤتمر تيرا برين 2. هدفنا الدائم هو الجمع بين الفكر، التطبيق،
+                والفرصة.
+              </p>
+
+              <h3
+                class="text-2xl font-bold mt-8 mb-4"
+                data-en="Success Stories"
+                data-ar="قصص نجاح"
+              >
+                قصص نجاح
+              </h3>
+              <p
+                data-en="Every event has a new story that begins, and our stories never end, because every event opens a new door for a young man or woman. Some of them started their project, some of them got training or a job, and some of them became a source of inspiration for others."
+                data-ar="في كل فعالية قصة جديدة تبدأ و قصصنا ما بتنتهي، لأن كل فعالية بتفتح باب جديد لشاب أو شابة. منهم اللي بدأ مشروعه، ومنهم اللي حصل على تدريب أو وظيفة، ومنهم اللي صار هو نفسه مصدر إلهام لغيره."
+              >
+                في كل فعالية قصة جديدة تبدأ و قصصنا ما بتنتهي، لأن كل فعالية
+                بتفتح باب جديد لشاب أو شابة. منهم اللي بدأ مشروعه، ومنهم اللي
+                حصل على تدريب أو وظيفة، ومنهم اللي صار هو نفسه مصدر إلهام لغيره.
+              </p>
+            </div>
+            <button
+              id="see-more-about"
+              class="mt-4 px-4 py-2 bg-yellow-500 text-white font-medium rounded-lg transition duration-300 hover:bg-yellow-600"
+              data-ar="عرض المزيد"
+            >
+              See More
+            </button>
+          </div>
+
+          <div class="md:flex md:space-x-12 items-center flex-row-rtl">
+            <!-- Text Content -->
+            <div class="md:w-1/2 mb-8 md:mb-0 fade-in">
+              <p
+                id="about-text-1"
+                class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-left-rtl"
+                data-en="The Tera Brain Conference is a premier annual event dedicated to exploring the convergence of artificial intelligence, neuroscience, and advanced computing. We bring together leading researchers, industry innovators, and thought leaders to discuss the next generation of cognitive technology. Our mission is to illuminate the paths toward creating smarter, more empathetic systems."
+                data-ar="مؤتمر تيرا برين هو حدث سنوي رائد مخصص لاستكشاف تلاقي الذكاء الاصطناعي، وعلوم الأعصاب، والحوسبة المتقدمة. نجمع كبار الباحثين ومبتكري الصناعة وقادة الفكر لمناقشة الجيل القادم من التكنولوجيا المعرفية. مهمتنا هي إلقاء الضوء على المسارات نحو إنشاء أنظمة أذكى وأكثر تعاطفًا."
+              >
+                مؤتمر تيرا برين هو حدث سنوي رائد مخصص لاستكشاف تلاقي الذكاء
+                الاصطناعي، وعلوم الأعصاب، والحوسبة المتقدمة. نجمع كبار الباحثين
+                ومبتكري الصناعة وقادة الفكر لمناقشة الجيل القادم من التكنولوجيا
+                المعرفية. مهمتنا هي إلقاء الضوء على المسارات نحو إنشاء أنظمة
+                أذكى وأكثر تعاطفًا.
+              </p>
+              <p
+                id="about-text-2"
+                class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 text-left-rtl"
+                data-en="Founded in 2023, Tera Brain has quickly become a key platform for sharing groundbreaking discoveries and fostering cross-disciplinary collaboration that is essential for tackling humanity's most complex challenges."
+                data-ar="تأسست تيرا برين في عام 2023، وسرعان ما أصبحت منصة رئيسية لتبادل الاكتشافات الرائدة وتعزيز التعاون متعدد التخصصات الذي يعتبر ضروريًا لمواجهة التحديات الأكثر تعقيدًا للإنسانية."
+              >
+                تأسست تيرا برين في عام 2023، وسرعان ما أصبحت منصة رئيسية لتبادل
+                الاكتشافات الرائدة وتعزيز التعاون متعدد التخصصات الذي يعتبر
+                ضروريًا لمواجهة التحديات الأكثر تعقيدًا للإنسانية.
+              </p>
+            </div>
+
+            <!-- Image Placeholder -->
+            <div class="md:w-1/2 fade-in">
+              <img
+                id="about-image"
+                src="097A7086.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/600x400/374151/f9fafb?text=ABOUT+US+IMAGE'
+                "
+                alt="Tera Brain conference team discussing complex ideas"
+                class="w-full h-auto object-cover rounded-xl shadow-2xl transition duration-500 transform card-hover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Goals and Vision Section -->
+      <section
+        id="goals-vision"
+        class="section-padding bg-gray-50 dark:bg-gray-800 transition-colors duration-300"
+        aria-labelledby="gv-title"
+      >
+        <div class="max-w-7xl mx-auto text-center">
+          <h2
+            id="gv-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-12 text-left-rtl fade-in"
+            data-en="Our work"
+            data-ar="مجالات عملنا "
+          >
+            Our Goals & Vision
+          </h2>
+
+          <!-- Our work -->
+          <h3
+            id="goals-h"
+            class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-left-rtl fade-in"
+            data-en="Core Goals"
+            data-ar="مجالات عملنا"
+          >
+            مجالات عملنا
+          </h3>
+          <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <!-- Goal 1 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-indigo-500 transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="goal-1-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="Entrepreneurship and Innovation"
+                data-ar="الريادة والابتكار"
+              >
+                الريادة والابتكار
+              </div>
+              <p
+                id="goal-1-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="We help youth turn their ideas into sustainable entrepreneurial projects."
+                data-ar="نساعد الشباب على تحويل أفكارهم إلى مشاريع ريادية مستدامة."
+              >
+                نساعد الشباب على تحويل أفكارهم إلى مشاريع ريادية مستدامة.
+              </p>
+            </div>
+            <!-- Goal 2 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-indigo-500 transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="goal-2-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="AI and Technology"
+                data-ar="الذكاء الاصطناعي والتكنولوجيا"
+              >
+                الذكاء الاصطناعي والتكنولوجيا
+              </div>
+              <p
+                id="goal-2-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="We raise awareness of modern technologies and link them to societal solutions."
+                data-ar="نشرّ الوعي بالتقنيات الحديثة وربطها بحلول مجتمعية."
+              >
+                نشرّ الوعي بالتقنيات الحديثة وربطها بحلول مجتمعية.
+              </p>
+            </div>
+            <!-- Goal 3 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-indigo-500 transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="goal-3-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="Economic and Community Empowerment"
+                data-ar="التمكين الاقتصادي والمجتمعي"
+              >
+                التمكين الاقتصادي والمجتمعي
+              </div>
+              <p
+                id="goal-3-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Support youth participation in economic and social development and employment."
+                data-ar="دعم مشاركة الشباب في التنمية الاقتصادية والاجتماعية و التوظيف."
+              >
+                دعم مشاركة الشباب في التنمية الاقتصادية والاجتماعية و التوظيف.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- goal 4 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-e7a23a transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="vision-1-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="Leadership and Policy"
+                data-ar="القيادة والسياسة"
+              >
+                القيادة والسياسة
+              </div>
+              <p
+                id="vision-1-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Preparing young leaders with awareness and responsibility towards the homeland."
+                data-ar="إعداد قادة شباب يمتلكون الوعي والمسؤولية تجاه الوطن."
+              >
+                إعداد قادة شباب يمتلكون الوعي والمسؤولية تجاه الوطن.
+              </p>
+            </div>
+            <!-- goal 5 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-e7a23a transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="vision-2-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="Digital Media"
+                data-ar="الإعلام الرقمي"
+              >
+                الإعلام الرقمي
+              </div>
+              <p
+                id="vision-2-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Training youth on positive media and creating influential content."
+                data-ar="تدريب الشباب على الإعلام الإيجابي وصناعة المحتوى المؤثر."
+              >
+                تدريب الشباب على الإعلام الإيجابي وصناعة المحتوى المؤثر.
+              </p>
+            </div>
+            <!-- goal 6 -->
+            <div
+              class="card p-6 bg-white dark:bg-gray-700 rounded-xl shadow-xl border-t-4 border-e7a23a transition duration-300 text-left-rtl fade-in stagger-item card-hover"
+            >
+              <div
+                id="vision-3-title"
+                class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3"
+                data-en="Future Skills"
+                data-ar="مهارات المستقبل"
+              >
+                مهارات المستقبل
+              </div>
+              <p
+                id="vision-3-text"
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Developing youth skills in communication, critical thinking, and teamwork."
+                data-ar="تطوير مهارات الشباب في مجالات التواصل، التفكير النقدي، والعمل الجماعي."
+              >
+                تطوير مهارات الشباب في مجالات التواصل، التفكير النقدي، والعمل
+                الجماعي.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Our Speakers Section (like feedback/profile) -->
+      <section
+        id="our-speakers"
+        class="section-padding bg-white dark:bg-gray-900 transition-colors duration-300"
+        aria-labelledby="speakers-title"
+      >
+        <div class="max-w-7xl mx-auto">
+          <h2
+            id="speakers-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-12 text-center fade-in"
+            data-en="Our Visionary Speakers"
+            data-ar="متحدثونا "
+          >
+            Our Visionary Speakers
+          </h2>
+
+          <div
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            id="speakers-container"
+          >
+            <!-- Speaker 1 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-visible"
+            >
+              <img
+                id="speaker-1-img"
+                src="زينب الامين .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=ZA'
+                "
+                alt="زينب الامين"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-1-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Zainab Al-Amin"
+                data-ar="زينب الامين"
+              >
+                زينب الامين
+              </div>
+              <p
+                id="speaker-1-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Interior design engineer with three bachelor's degrees in design field"
+                data-ar="مهندسة و مصممه داخليه حاصلة على ثلاث شهادات بكالوريوس في مجال التصميم"
+              >
+                مهندسة و مصممه داخليه حاصلة على ثلاث شهادات بكالوريوس في مجال
+                التصميم
+              </p>
+            </div>
+
+            <!-- Speaker 2 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-visible"
+            >
+              <img
+                id="speaker-2-img"
+                src="د مؤيد السمان .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=MS'
+                "
+                alt="د. مؤيد السمان"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-2-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Dr. Muyad Al-Samman"
+                data-ar="د. مؤيد السمان"
+              >
+                د. مؤيد السمان
+              </div>
+
+              <p
+                id="speaker-2-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Local and international economic consultant and expert with practical and scientific experience. Chairman of boards of many government and private companies."
+                data-ar="صاحب الخبرة العملية والعلمية. مستشار وخبير اقتصادي محلي ودولي. ترأس مجالس إدارة العديد من الشركات الحكومية والخاصة."
+              >
+                صاحب الخبرة العملية والعلمية. مستشار وخبير اقتصادي محلي ودولي.
+                ترأس مجالس إدارة العديد من الشركات الحكومية والخاصة.
+              </p>
+            </div>
+
+            <!-- Speaker 3 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-visible"
+            >
+              <img
+                id="speaker-3-img"
+                src="د.طارق رشيد.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=TR'
+                "
+                alt="د. طارق رشيد"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-3-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Dr. Tariq Rashid"
+                data-ar="د. طارق رشيد"
+              >
+                د. طارق رشيد
+              </div>
+
+              <p
+                id="speaker-3-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="International consultant and trainer - UN Global Training Center. Project management and contract management specialist. Trainer and consultant in organizational change, strategic management, leadership and organizational development. Author of several books in project management."
+                data-ar="مستشار ومدرب دولي - مركز التدريب العالمي - الأمم المتحدة
+أخصائي إدارة مشاريع وإدارة العقود
+مدرب ومستشار في التغيير المؤسسي والإدارة الإستراتيجية والقيادة والتطوير المؤسسي
+مؤلف كتاب في الهندسة لعدة كتب في  إدارة المشاريع"
+              >
+                مستشار ومدرب دولي - مركز التدريب العالمي - الأمم المتحدة أخصائي
+                إدارة مشاريع وإدارة العقود مدرب ومستشار في التغيير المؤسسي
+                والإدارة الإستراتيجية والقيادة والتطوير المؤسسي مؤلف كتاب في
+                الهندسة لعدة كتب في إدارة المشاريع
+              </p>
+            </div>
+
+            <!-- Additional Speakers (Initially Hidden) -->
+
+            <!-- Speaker 4 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-4-img"
+                src="فرح الحوراني.jpeg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=FH'
+                "
+                alt="فرح حوراني"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-4-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Farah Hourani"
+                data-ar="فرح حوراني"
+              >
+                فرح حوراني
+              </div>
+
+              <p
+                id="speaker-4-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Fashion designer specialized in laser cutting and integrating technology with fashion. Participated in fashion shows in London, Lebanon, Los Angeles and Barcelona."
+                data-ar="مصممة أزياء
+مختصة بقص الليزر و دمج التكنولوجيا مع الازياء
+شاركت بعروض أزياء في لندن، لبنان، لوس انجليس و برشلونة."
+              >
+                مصممة أزياء مختصة بقص الليزر و دمج التكنولوجيا مع الازياء شاركت
+                بعروض أزياء في لندن، لبنان، لوس انجليس و برشلونة.
+              </p>
+            </div>
+
+            <!-- Speaker 5 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-5-img"
+                src="روبوتنا .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=RB'
+                "
+                alt="روبوتنا"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-5-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="RoboTna"
+                data-ar="روبوتنا"
+              >
+                روبوتنا
+              </div>
+
+              <p
+                id="speaker-5-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Team specialized in robotics and technology. Received best technology initiative award from UNV. Received Bader Fellowship award from International Youth Organization. Among the top 10 humanitarian projects in the Arab world from Kuwait General Youth Authority."
+                data-ar="فريق مختص بمجال الروبوتات والتكنولوجيا
+حاصلين على أفضل مبادرة في مجال التكنولوجيا من ال UNV
+حاصلين على جائزة  زمالة بادر من المنظمة الدولية للشباب
+حاصلين على أفضل 10 مشاريع إنسانية في العالم العربي من الهيئة العامة للشباب الكويت"
+              >
+                فريق مختص بمجال الروبوتات والتكنولوجيا حاصلين على أفضل مبادرة في
+                مجال التكنولوجيا من ال UNV حاصلين على جائزة زمالة بادر من
+                المنظمة الدولية للشباب حاصلين على أفضل 10 مشاريع إنسانية في
+                العالم العربي من الهيئة العامة للشباب الكويت
+              </p>
+            </div>
+
+            <!-- Speaker 6 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-6-img"
+                src="د لانا مبيضين.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=LM'
+                "
+                alt="د. لانا مبيضين"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-6-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Dr. Lana Mbaideen"
+                data-ar="د. لانا مبيضين"
+              >
+                د. لانا مبيضين
+              </div>
+
+              <p
+                id="speaker-6-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="King Abdullah II Special Operations Training Center (KASOTC). The center was established in 2009 by royal will and was inaugurated by His Majesty King Abdullah II."
+                data-ar="مركز الملك عبد الله الثاني لتدريب العمليات الخاصة
+تأسس المركز في عام 2009 بارادة ملكي ساميه
+وافتتح المركز جلالة الملك عبدالله الثاني"
+              >
+                مركز الملك عبد الله الثاني لتدريب العمليات الخاصة تأسس المركز في
+                عام 2009 بارادة ملكي ساميه وافتتح المركز جلالة الملك عبدالله
+                الثاني
+              </p>
+            </div>
+
+            <!-- Speaker 7 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-7-img"
+                src="سالي ابو علي  .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=SA'
+                "
+                alt="المستشارة سالي ابو علي"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-7-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Counselor Sally Abu Ali"
+                data-ar="المستشارة سالي ابو علي"
+              >
+                المستشارة سالي ابو علي
+              </div>
+
+              <p
+                id="speaker-7-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Human resources and work environment consultant. Founder of Aman Initiative."
+                data-ar="مستشارة الموارد البشرية و بيئة العمل
+مؤسسة مبادرة أمان"
+              >
+                مستشارة الموارد البشرية و بيئة العمل مؤسسة مبادرة أمان
+              </p>
+            </div>
+
+            <!-- Speaker 8 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-8-img"
+                src="راية يعقوب  .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=RY'
+                "
+                alt="راية يعقوب"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-8-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Raya Yaqoub"
+                data-ar="راية يعقوب"
+              >
+                راية يعقوب
+              </div>
+
+              <p
+                id="speaker-8-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Master's in Modern Media. Bachelor's in Journalism, Media and Political Science. Vice CEO of Daem Media Center."
+                data-ar="ماجستير في الإعلام الحديث
+بكالوريوس صحافة وإعلام وعلوم سياسية
+ نائباً للرئيس التنفيذي بمركز داعم للاعلام"
+              >
+                ماجستير في الإعلام الحديث بكالوريوس صحافة وإعلام وعلوم سياسية
+                نائباً للرئيس التنفيذي بمركز داعم للاعلام
+              </p>
+            </div>
+
+            <!-- Speaker 9 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-9-img"
+                src="د معتصم مسالمة .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=MM'
+                "
+                alt="د. معتصم مسالمة"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-9-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Dr. Mo'tasem Masalma"
+                data-ar="د. معتصم مسالمة"
+              >
+                د. معتصم مسالمة
+              </div>
+
+              <p
+                id="speaker-9-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Founder of 7 Doctors Program (7drs). Founder of 'Still Have Hope' initiative. Head of Jordan Volunteers Team."
+                data-ar="مؤسس برنامج الاطباء السبعة ( 7drs )
+مؤسس مبادرة لسه في همه
+رئيس فريق متطوعو الأردن"
+              >
+                مؤسس برنامج الاطباء السبعة ( 7drs ) مؤسس مبادرة لسه في همه رئيس
+                فريق متطوعو الأردن
+              </p>
+            </div>
+
+            <!-- Speaker 10 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-10-img"
+                src="فتحي الجغبير.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=FJ'
+                "
+                alt="م. فتحي الجغبير"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-10-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Eng. Fathi Al-Jaghbir"
+                data-ar="م. فتحي الجغبير"
+              >
+                م. فتحي الجغبير
+              </div>
+
+              <p
+                id="speaker-10-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="President of Small and Medium Industries Association. Chairman of Board of Directors of Al-Farah Chocolate Manufacturing Company. Member of Amman Chamber of Industry Board of Directors."
+                data-ar="رئيس جمعية الصناعات الصغيرة والمتوسطة.
+رئيس هيئة مديرين شركة الفرح لصناعة الشوكولاته .
+عضو مجلس إدارة غرفة صناعة عمان ."
+              >
+                رئيس جمعية الصناعات الصغيرة والمتوسطة. رئيس هيئة مديرين شركة
+                الفرح لصناعة الشوكولاته . عضو مجلس إدارة غرفة صناعة عمان .
+              </p>
+            </div>
+
+            <!-- Speaker 11 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-11-img"
+                src="محمد الرازم.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=MR'
+                "
+                alt="محمد الرازم"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-11-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Mohammad Al-Razem"
+                data-ar="محمد الرازم"
+              >
+                محمد الرازم
+              </div>
+
+              <p
+                id="speaker-11-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Founder and Director of Vardot for software and website solutions. Active contributor to open source Drupal software."
+                data-ar="مؤسس ومدير شركة Vardot للبرمجيات وحلول المواقع الإلكترونية
+مساهم نشط في برمجية دروبال (Drupal) مفتوحة المصدر"
+              >
+                مؤسس ومدير شركة Vardot للبرمجيات وحلول المواقع الإلكترونية مساهم
+                نشط في برمجية دروبال (Drupal) مفتوحة المصدر
+              </p>
+            </div>
+
+            <!-- Speaker 12 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-12-img"
+                src="بهاء عصفور.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=BA'
+                "
+                alt="بهاء عصفور"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-12-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Baha' Asfour"
+                data-ar="بهاء عصفور"
+              >
+                بهاء عصفور
+              </div>
+
+              <p
+                id="speaker-12-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Lawyer and founder of 'The Platinum Shop'. Member of Board of Directors of Arab American University - Palestine."
+                data-ar="مُحامي و مؤسس 'The Platinum Shop' و عضو مجلس إدارة الجامعة العربية الامريكية - فلسطين"
+              >
+                مُحامي و مؤسس "The Platinum Shop" و عضو مجلس إدارة الجامعة
+                العربية الامريكية - فلسطين
+              </p>
+            </div>
+
+            <!-- Speaker 13 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-13-img"
+                src="مريم حموري .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=MH'
+                "
+                alt="مريم الحموري"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-13-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Mariam Al-Hamouri"
+                data-ar="مريم الحموري"
+              >
+                مريم الحموري
+              </div>
+
+              <p
+                id="speaker-13-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Activist in humanitarian work. Founder and head of Issam Volunteer Team."
+                data-ar="ناشطة في مجال العمل الإنساني.
+مؤسس ورئيس فريق عصام التطوعي."
+              >
+                ناشطة في مجال العمل الإنساني. مؤسس ورئيس فريق عصام التطوعي.
+              </p>
+            </div>
+
+            <!-- Speaker 14 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-14-img"
+                src="منال جرار .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=MJ'
+                "
+                alt="منال جرار"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-14-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Manal Jarar"
+                data-ar="منال جرار"
+              >
+                منال جرار
+              </div>
+
+              <p
+                id="speaker-14-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="General Manager of National Insurance Company. Member of Global Women's Forum. Received title of one of the top 10 businesswomen in Jordan."
+                data-ar="مدير عام شركة التأمين الوطنية
+عضو ملتقى النساء العالمي
+حاصلة على لقب اقوى 10 سيدات أعمال في الاردن"
+              >
+                مدير عام شركة التأمين الوطنية عضو ملتقى النساء العالمي حاصلة على
+                لقب اقوى 10 سيدات أعمال في الاردن
+              </p>
+            </div>
+
+            <!-- Speaker 15 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-15-img"
+                src="ماران معايعه.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=MA'
+                "
+                alt="ماران أبوجابر"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-15-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Maran Abujaber"
+                data-ar="ماران أبوجابر"
+              >
+                ماران أبوجابر
+              </div>
+
+              <p
+                id="speaker-15-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Gave up civil engineering degree in (roads and bridges) to fully dedicate herself to building a (non-profit) organization she named 'The Goal' by completing a master's degree in non-profit project management. The organization aims to meet the needs of abused Jordanian orphans and help Iraqi refugees."
+                data-ar="تخلت عن شهادة الهندسة المدنية في تخصص (طرق وجسور) للتفرغ كاملاً لبناء منظمة (غير ربحية) سمتها بالهدف من خلال اكمال درجة الماجستير بإدارة المشاريع الغير ربحية. وتهدف المنظمة لتلبية احتياجات الأيتام الأردنيين الذين تعرضوا لسوء المعاملة ومساعدة اللاجئين العراقيين."
+              >
+                تخلت عن شهادة الهندسة المدنية في تخصص (طرق وجسور) للتفرغ كاملاً
+                لبناء منظمة (غير ربحية) سمتها بالهدف من خلال اكمال درجة
+                الماجستير بإدارة المشاريع الغير ربحية. وتهدف المنظمة لتلبية
+                احتياجات الأيتام الأردنيين الذين تعرضوا لسوء المعاملة ومساعدة
+                اللاجئين العراقيين.
+              </p>
+            </div>
+
+            <!-- Speaker 16 - Memorial Speaker -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-16-img"
+                src="م محمد عناب .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/6b7280/ffffff?text=MA'
+                "
+                alt="م. محمد عناب"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-gray-500 memorial-speaker"
+                loading="lazy"
+              />
+              <div
+                id="speaker-16-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Eng. Mohammad Anab (May he rest in peace)"
+                data-ar="م. محمد عناب (رحمه الله)"
+              >
+                م. محمد عناب (رحمه الله)
+              </div>
+
+              <p
+                id="speaker-16-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Businessman and engineer with practical and scientific experience, chairman of boards of many companies in addition to his membership in management of local companies and General Manager of Mazhar Anab Company."
+                data-ar="رجل الأعمال والمهندس صاحب الخبرة العملية والعلمية ورئيس مجلس ادارة العديد من الشركات بالإضافة الى عضويته بإدارة شركات محلية ومدير عام شركة مظهر عناب."
+              >
+                رجل الأعمال والمهندس صاحب الخبرة العملية والعلمية ورئيس مجلس
+                ادارة العديد من الشركات بالإضافة الى عضويته بإدارة شركات محلية
+                ومدير عام شركة مظهر عناب.
+              </p>
+            </div>
+
+            <!-- Speaker 17 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-17-img"
+                src="علاء البشيتي.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=AB'
+                "
+                alt="علاء البشيتي"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-17-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Alaa Al-Bashiti"
+                data-ar="علاء البشيتي"
+              >
+                علاء البشيتي
+              </div>
+
+              <p
+                id="speaker-17-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="CEO of Tantawee for youth work and volunteering, ambassador and representative of International Peace Organization in Jordan, and General Manager of Al-Bashiti Warehouses for General Supplies Company."
+                data-ar="المدير التنفيذي لـ تنتمي للعمل الشبابي والتطوعي، وسفير و ممثل منظمة السلام الدولية في الأردن و المدير العام لشركة مخازن البشيتي للتجهيزات العامة."
+              >
+                المدير التنفيذي لـ تنتمي للعمل الشبابي والتطوعي، وسفير و ممثل
+                منظمة السلام الدولية في الأردن و المدير العام لشركة مخازن
+                البشيتي للتجهيزات العامة.
+              </p>
+            </div>
+
+            <!-- Speaker 18 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-18-img"
+                src="هديل شحاده .jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/e7a23a/ffffff?text=HS'
+                "
+                alt="هديل شحادة"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-e7a23a"
+                loading="lazy"
+              />
+              <div
+                id="speaker-18-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Hadeel Shehadeh"
+                data-ar="هديل شحادة"
+              >
+                هديل شحادة
+              </div>
+
+              <p
+                id="speaker-18-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Expert in digital marketing and social media. Will talk about her experience in this field and how she became one of the most influential people in Jordan on social media platforms."
+                data-ar="الخبيرة في مجال التسويق الرقمي وفي التواصل الاجتماعي، وسوف تتحدث عن خبرتها في هذا المجال، وكيف وصلت لتصبح من اقوى المؤثرين في الأردن على مواقع التواصل الاجتماعي."
+              >
+                الخبيرة في مجال التسويق الرقمي وفي التواصل الاجتماعي، وسوف تتحدث
+                عن خبرتها في هذا المجال، وكيف وصلت لتصبح من اقوى المؤثرين في
+                الأردن على مواقع التواصل الاجتماعي.
+              </p>
+            </div>
+
+            <!-- Speaker 19 -->
+            <div
+              class="card p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-xl text-center transition duration-500 fade-in stagger-item card-hover speaker-hidden"
+            >
+              <img
+                id="speaker-19-img"
+                src="نبيل صوالحه.jpg"
+                onerror="
+                  this.src =
+                    'https://placehold.co/128x128/4f46e5/ffffff?text=NS'
+                "
+                alt="نبيل صوالحة"
+                class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-indigo-500"
+                loading="lazy"
+              />
+              <div
+                id="speaker-19-name"
+                class="text-xl font-bold text-gray-900 dark:text-gray-100"
+                data-en="Nabil Sawalha"
+                data-ar="نبيل صوالحة"
+              >
+                نبيل صوالحة
+              </div>
+
+              <p
+                id="speaker-19-feedback"
+                class="text-gray-600 dark:text-gray-300 italic text-left-rtl"
+                data-en="Jordanian actor famous for performing comedic roles. Used to perform multiple characters in one episode. Will talk about entrepreneurship and the importance of Jordan's support for young entrepreneurs in society. Artist Nabil Sawalha is from Madaba, from the Al-Azizat tribe."
+                data-ar="ممثل أردني اشتهر بأداء الأدوار الكوميدية. كان يؤدي العديد من الشخصيات في الحلقة الواحدة وسوف يتحدث عن الريادة وأهمية دعم الأردن للشباب و الشابات الرياديين في المجتمع. الفنان نبيل صوالحة من مواليد مادبا، من عشيرة العزيزات."
+              >
+                ممثل أردني اشتهر بأداء الأدوار الكوميدية. كان يؤدي العديد من
+                الشخصيات في الحلقة الواحدة وسوف يتحدث عن الريادة وأهمية دعم
+                الأردن للشباب و الشابات الرياديين في المجتمع. الفنان نبيل صوالحة
+                من مواليد مادبا، من عشيرة العزيزات.
+              </p>
+            </div>
+          </div>
+
+          <!-- See More Button -->
+          <div class="text-center mt-10">
+            <button
+              id="see-more-speakers"
+              class="px-8 py-3 btn-primary text-white font-bold rounded-lg shadow-lg transition duration-300"
+              data-en="See More Speakers"
+              data-ar="شاهد المزيد من المتحدثين"
+            >
+              See More Speakers
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Our Sponsors Section -->
+      <section
+        id="our-sponsors"
+        class="section-padding bg-gray-50 dark:bg-gray-800 transition-colors duration-300"
+      >
+        <div class="max-w-7xl mx-auto text-center">
+          <h2
+            id="sponsors-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-12 text-center"
+            data-en="Our Valued Sponsors"
+            data-ar="رعاتنا الكرام"
+          >
+            Our Valued Sponsors
+          </h2>
+
+          <!-- Partners Message -->
+          <div class="mb-8 fade-in">
+            <p
+              class="text-lg text-gray-700 dark:text-gray-300 italic"
+              data-en="We are proud of our partners who believed in our message and were part of our success:"
+              data-ar="نفخر بشركائنا الذين آمنوا برسالتنا وكانوا جزءًا من نجاحنا:"
+            >
+              نفخر بشركائنا الذين آمنوا برسالتنا وكانوا جزءًا من نجاحنا:
+            </p>
+          </div>
+
+          <!-- Sponsors Marquee -->
+          <div class="sponsors-container">
+            <div class="sponsors-track" id="sponsors-track">
+              <!-- Sponsor 1 -->
+              <div class="sponsor-item">
+                <img
+                  src="Jordina Logo.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Quantum+Tech'
+                  "
+                  alt="Sponsor Logo 1"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 2 -->
+              <div class="sponsor-item">
+                <img
+                  src="Logo Tech3arabi.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Neuralink+Co'
+                  "
+                  alt="Sponsor Logo 2"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 3 -->
+              <div class="sponsor-item">
+                <img
+                  src="Picture1.jpg"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Global+Computing'
+                  "
+                  alt="Sponsor Logo 3"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 4 -->
+              <div class="sponsor-item">
+                <img
+                  src="Picture1.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=MindSet+Labs'
+                  "
+                  alt="Sponsor Logo 4"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 5 -->
+              <div class="sponsor-item">
+                <img
+                  src="Screenshot 2025-10-16 171026.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 5"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 6 -->
+              <div class="sponsor-item">
+                <img
+                  src="راديو دهب.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 6"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 7 -->
+              <div class="sponsor-item">
+                <img
+                  src="جو اكاديمي.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 7"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 8 -->
+              <div class="sponsor-item">
+                <img
+                  src="WhatsApp Image 2025-10-16 at 3.36.13 PM.jpeg"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 8"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 9 -->
+              <div class="sponsor-item">
+                <img
+                  src="spponss.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 9"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 10 -->
+              <div class="sponsor-item">
+                <img
+                  src="رويا.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 10"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 11 -->
+              <div class="sponsor-item">
+                <img
+                  src="غرفه صناعه عمان .png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 11"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 12 -->
+              <div class="sponsor-item">
+                <img
+                  src="SE Logo.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 12"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 13 -->
+              <div class="sponsor-item">
+                <img
+                  src="®️ALYOUM LOGO DAISY UNIFIED.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 13"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 14 -->
+              <div class="sponsor-item">
+                <img
+                  src="راديو مزاج اف ام.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 14"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Duplicate for seamless loop -->
+              <!-- Sponsor 1 -->
+              <div class="sponsor-item">
+                <img
+                  src="Jordina Logo.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Quantum+Tech'
+                  "
+                  alt="Sponsor Logo 1"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 2 -->
+              <div class="sponsor-item">
+                <img
+                  src="Logo Tech3arabi.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Neuralink+Co'
+                  "
+                  alt="Sponsor Logo 2"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 3 -->
+              <div class="sponsor-item">
+                <img
+                  src="Picture1.jpg"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Global+Computing'
+                  "
+                  alt="Sponsor Logo 3"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 4 -->
+              <div class="sponsor-item">
+                <img
+                  src="Picture1.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=MindSet+Labs'
+                  "
+                  alt="Sponsor Logo 4"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 5 -->
+              <div class="sponsor-item">
+                <img
+                  src="Screenshot 2025-10-16 171026.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 5"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 6 -->
+              <div class="sponsor-item">
+                <img
+                  src="راديو دهب.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 6"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 7 -->
+              <div class="sponsor-item">
+                <img
+                  src="جو اكاديمي.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 7"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 8 -->
+              <div class="sponsor-item">
+                <img
+                  src="WhatsApp Image 2025-10-16 at 3.36.13 PM.jpeg"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 8"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 9 -->
+              <div class="sponsor-item">
+                <img
+                  src="جمعيه ابداع.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 9"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 10 -->
+              <div class="sponsor-item">
+                <img
+                  src="رويا.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 10"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 11 -->
+              <div class="sponsor-item">
+                <img
+                  src="غرفه صناعه عمان .png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 11"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 12 -->
+              <div class="sponsor-item">
+                <img
+                  src="SE Logo.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 12"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 13 -->
+              <div class="sponsor-item">
+                <img
+                  src="®️ALYOUM LOGO DAISY UNIFIED.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 13"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Sponsor 14 -->
+              <div class="sponsor-item">
+                <img
+                  src="راديو مزاج اف ام.png"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/150x50/334155/ffffff?text=Innovation+Fund'
+                  "
+                  alt="Sponsor Logo 14"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Thank You Message -->
+          <div class="mt-8 fade-in">
+            <p
+              class="text-lg text-gray-700 dark:text-gray-300 italic"
+              data-en="Thank you to everyone who supported an idea, stood with a dream, and contributed to empowering Jordanian youth."
+              data-ar="شكرًا لكل من دعم فكرة، ووقف مع حلم، وساهم في تمكين الشباب الأردني."
+            >
+              شكرًا لكل من دعم فكرة، ووقف مع حلم، وساهم في تمكين الشباب الأردني.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. FAQ Section -->
+      <section
+        id="faq"
+        class="section-padding bg-white dark:bg-gray-900 transition-colors duration-300"
+      >
+        <div class="max-w-4xl mx-auto">
+          <h2
+            id="faq-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-12 text-center fade-in"
+            data-en="Frequently Asked Questions"
+            data-ar="الأسئلة الشائعة"
+          >
+            الأسئلة الشائعة
+          </h2>
+
+          <div class="space-y-6">
+            <!-- FAQ 1 -->
+            <div class="faq-item fade-in">
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+                data-en="How to join to attend the event?"
+                data-ar="طريقه الانضمام لحضور الفعالية ؟"
+              >
+                طريقه الانضمام لحضور الفعالية ؟
+              </h3>
+              <p
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Target groups join the program (for free) by filling out the joining form on the group's website."
+                data-ar="يتم انضمام الفئات المستهدفة للبرنامج ( مجانا ) من خلال تعبئة نموذج الانضمام في الموقع الإلكتروني للمجموعة"
+              >
+                يتم انضمام الفئات المستهدفة للبرنامج ( مجانا ) من خلال تعبئة
+                نموذج الانضمام في الموقع الإلكتروني للمجموعة
+              </p>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="faq-item fade-in">
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+                data-en="What is Tera Brain?"
+                data-ar="ما هي تيرا برين ؟"
+              >
+                ما هي تيرا برين ؟
+              </h3>
+              <p
+                class="text-gray-600 dark:text-gray-300"
+                data-en="It is a volunteer youth group that aims to support youth in various fields, which is now a conference that supports the development of youth thought to support developmental ideas at the level of the Kingdom with the aim of supporting and developing youth and projects within community responsibility."
+                data-ar="هي  مجموعة شبابية تطوعية تهدف لدعم الشباب في مختلف المجالات ، والذي يعد الآن مؤتمرًا يدعم تنمية الفكر الشبابي لدعم الأفكار التنموية على مستوى المملكة بهدف دعم وتطوير الشباب والمشاريع ضمن المسؤولية المجتمعية"
+              >
+                هي مجموعة شبابية تطوعية تهدف لدعم الشباب في مختلف المجالات ،
+                والذي يعد الآن مؤتمرًا يدعم تنمية الفكر الشبابي لدعم الأفكار
+                التنموية على مستوى المملكة بهدف دعم وتطوير الشباب والمشاريع ضمن
+                المسؤولية المجتمعية
+              </p>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="faq-item fade-in">
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+                data-en="What are the event activities?"
+                data-ar="ما هي أنشطة الفعالية ؟"
+              >
+                ما هي أنشطة الفعالية ؟
+              </h3>
+              <p
+                class="text-gray-600 dark:text-gray-300"
+                data-en="Topics include life skills and entrepreneurship, project establishment and scientific research, entrepreneurship within organizations, and other topics that keep pace with change and development in a world that is changing at a rapid pace."
+                data-ar="مواضيع تضم المهارات الحياتية والريادة ، وتأسيس المشاريع والبحث العلمي ، والريادة داخل المنظمات ، وغيرها من المواضيع التي تواكب التغير والتطور وسط عالم يتغير بتسارع كبير"
+              >
+                مواضيع تضم المهارات الحياتية والريادة ، وتأسيس المشاريع والبحث
+                العلمي ، والريادة داخل المنظمات ، وغيرها من المواضيع التي تواكب
+                التغير والتطور وسط عالم يتغير بتسارع كبير
+              </p>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="faq-item fade-in">
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+                data-en="What does Tera Brain aim for?"
+                data-ar="ماذا تهدف تيرا برين ؟"
+              >
+                ماذا تهدف تيرا برين ؟
+              </h3>
+              <p
+                class="text-gray-600 dark:text-gray-300"
+                data-en="It aims to support and develop youth and projects within community responsibility."
+                data-ar="تهدف الى دعم وتطوير الشباب والمشاريع ضمن المسؤولية المجتمعية"
+              >
+                تهدف الى دعم وتطوير الشباب والمشاريع ضمن المسؤولية المجتمعية
+              </p>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="faq-item fade-in">
+              <h3
+                class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+                data-en="Details about Tera Brain 3 event?"
+                data-ar="تفاصيل عن فعالية تيرا برين ٣ ؟"
+              >
+                تفاصيل عن فعالية تيرا برين ٣ ؟
+              </h3>
+              <p
+                class="text-gray-600 dark:text-gray-300"
+                data-en="It will be held on Friday, October 31, 2025 at the Amman Chamber of Industry and will support several fields, including artificial intelligence, emotional intelligence, and entrepreneurship."
+                data-ar="سوف تنعقد يوم الجمعة الموافق 31/10/2025 في غرفة صناعة عمان و سوف تدعم مجالات عدة منها الذكاء الاصطناعي و الذكاء العاطفي و ريادة الأعمال"
+              >
+                سوف تنعقد يوم الجمعة الموافق 31/10/2025 في غرفة صناعة عمان و سوف
+                تدعم مجالات عدة منها الذكاء الاصطناعي و الذكاء العاطفي و ريادة
+                الأعمال
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Gallery Section -->
+      <section
+        id="gallery"
+        class="section-padding bg-gray-50 dark:bg-gray-800 transition-colors duration-300"
+      >
+        <div class="max-w-7xl mx-auto">
+          <h2
+            id="gallery-title"
+            class="section-title text-4xl font-extrabold text-indigo-600 dark:text-e7a23a mb-12 text-center fade-in"
+            data-en="Gallery"
+            data-ar="المعرض"
+          >
+            المعرض
+          </h2>
+
+          <div class="text-center mb-8 fade-in">
+            <p
+              class="text-lg text-gray-700 dark:text-gray-300 italic"
+              data-en="Photos from our conferences, events, and inspiring sessions. Every picture tells a story, and behind every moment is a team, a dream, and success."
+              data-ar="صور من مؤتمراتنا، فعالياتنا، وجلساتنا الملهمة. كل صورة بتحكي قصة، وكل لحظة وراها فريق، حلم، ونجاح."
+            >
+              صور من مؤتمراتنا، فعالياتنا، وجلساتنا الملهمة. كل صورة بتحكي قصة،
+              وكل لحظة وراها فريق، حلم، ونجاح.
+            </p>
+          </div>
+
+          <div class="gallery-grid">
+            <!-- Gallery Image 1 -->
+            <div class="fade-in">
+              <img
+                src="097A6981.jpg"
+                alt="Tera Brain Conference"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 2 -->
+            <div class="fade-in">
+              <img
+                src="097A7102.jpg"
+                alt="Tera Brain Workshop"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 3 -->
+            <div class="fade-in">
+              <img
+                src="097A7125.jpg"
+                alt="Tera Brain Event"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 4 -->
+            <div class="fade-in">
+              <img
+                src="_MG_6357.JPG"
+                alt="Tera Brain Team"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 5 -->
+            <div class="fade-in">
+              <img
+                src="DSC_0836.jpg"
+                alt="Tera Brain Session"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 6 -->
+            <div class="fade-in">
+              <img
+                src="WhatsApp Image 2018-10-14 at 9.35.32 AM.jpeg"
+                alt="Tera Brain Networking"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 7 -->
+            <div class="fade-in">
+              <img
+                src="s1.JPG"
+                alt="Tera Brain Networking"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <!-- Gallery Image 8 -->
+            <div class="fade-in">
+              <img
+                src="s2.jpg"
+                alt="Tera Brain Networking"
+                class="w-full h-48 object-cover rounded-lg shadow-lg transition duration-300 transform hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-900 dark:bg-black text-white section-padding pt-10 pb-6 transition-colors duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-left-rtl">
+          <!-- Column 1: Brand Info -->
+          <div>
+            <h3
+              id="footer-brand"
+              class="text-xl font-extrabold text-white mb-4"
+              data-en="Tera Brain"
+              data-ar="Tera Brain"
+            >
+              Tera Brain
+            </h3>
+            <p
+              id="footer-mission"
+              class="text-gray-400 text-sm"
+              data-en="Leading the global dialogue on cognitive technologies and AI ethics."
+              data-ar="قيادة الحوار العالمي حول التقنيات المعرفية وأخلاقيات الذكاء الاصطناعي."
+            >
+              قيادة الحوار العالمي حول التقنيات المعرفية وأخلاقيات الذكاء
+              الاصطناعي.
+            </p>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h3
+              id="footer-links"
+              class="text-lg font-semibold mb-4 text-e7a23a"
+              data-en="Quick Links"
+              data-ar="روابط سريعة"
+            >
+              روابط سريعة
+            </h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#about-us"
+                  class="text-gray-400 hover:text-white transition duration-200"
+                  data-en="About Us"
+                  data-ar="من نحن"
+                  >من نحن</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#our-speakers"
+                  class="text-gray-400 hover:text-white transition duration-200"
+                  data-en="Speakers"
+                  data-ar="المتحدثون"
+                  >المتحدثون</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#our-sponsors"
+                  class="text-gray-400 hover:text-white transition duration-200"
+                  data-en="Sponsors"
+                  data-ar="الرعاة"
+                  >الرعاة</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#faq"
+                  class="text-gray-400 hover:text-white transition duration-200"
+                  data-en="FAQ"
+                  data-ar="الأسئلة الشائعة"
+                  >الأسئلة الشائعة</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Contact -->
+          <div>
+            <h3
+              id="footer-contact"
+              class="text-lg font-semibold mb-4 text-e7a23a"
+              data-en="Contact : (+962) 797141410"
+              data-ar=" 0797141410 :اتصل بنا"
+            >
+              اتصل بنا : 0797141410
+            </h3>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li
+                id="footer-email"
+                data-en="Email: ahmad.terrabrain@gmail.com"
+                data-ar="البريد الإلكتروني: ahmad.terrabrain@gmail.com"
+              >
+                البريد الإلكتروني: ahmad.terrabrain@gmail.com
+              </li>
+              <li
+                id="footer-location"
+                data-en="Location: King Hussein Business Park"
+                data-ar="الموقع: مجمع الملك حسين للاعمال"
+              >
+                الموقع: مجمع الملك حسين للاعمال
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Register -->
+          <div>
+            <h3
+              id="footer-register"
+              class="text-lg font-semibold mb-4 text-e7a23a"
+              data-en="Join Us"
+              data-ar="انضم إلينا"
+            >
+              انضم إلينا
+            </h3>
+            <button
+              onclick="document.getElementById('register-link').click()"
+              class="px-6 py-2 btn-primary text-white font-bold rounded-lg transition duration-300 shadow-md"
+              data-en="Register Now"
+              data-ar="سجل الآن"
+            >
+              سجل الآن
+            </button>
+          </div>
+        </div>
+
+        <!-- Copyright and Separator -->
+        <div class="mt-8 pt-4 border-t border-gray-700">
+          <p
+            id="footer-copyright"
+            class="text-center text-gray-500 text-sm"
+            data-en="&copy; 2025 Tera Brain Conference. All rights reserved."
+            data-ar="&copy; 2025 مؤتمر تيرا برين. جميع الحقوق محفوظة."
+          >
+            &copy; 2025 مؤتمر تيرا برين. جميع الحقوق محفوظة.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // --- Core Application Logic ---
+
+      // 1. Language and Text Translation Logic
+      const TEXT_ELEMENTS = document.querySelectorAll("[data-en], [data-ar]");
+      const body = document.getElementById("body");
+      const langToggle = document.getElementById("lang-toggle");
+      const langText = document.getElementById("lang-text");
+
+      // Target Date: 31 October 2025
+      const EVENT_DATE = new Date("October 31, 2025 09:00:00").getTime();
+
+      function setLanguage(lang) {
+        if (lang === "ar") {
+          body.setAttribute("dir", "rtl");
+          body.setAttribute("lang", "ar");
+          langText.textContent = langText.getAttribute("data-ar"); // Should show 'EN'
+          langText.setAttribute("data-current-lang", "ar");
+        } else {
+          body.setAttribute("dir", "ltr");
+          body.setAttribute("lang", "en");
+          langText.textContent = langText.getAttribute("data-en"); // Should show 'AR'
+          langText.setAttribute("data-current-lang", "en");
+        }
+
+        TEXT_ELEMENTS.forEach((el) => {
+          const text = el.getAttribute(`data-${lang}`);
+          if (text) {
+            // Update content
+            if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+              el.placeholder = text;
+            } else if (el.tagName !== "BUTTON" && el.tagName !== "A") {
+              el.innerHTML = text; // Use innerHTML to preserve span tags
+            } else {
+              // For buttons and links, use innerHTML for flexibility
+              el.innerHTML = text;
+            }
+
+            // Handle text alignment for RTL/LTR compatibility
+            const classList = el.classList;
+            if (lang === "ar") {
+              // When in RTL, elements marked as 'text-left-rtl' should be right-aligned
+              if (classList.contains("text-left-rtl")) {
+                classList.remove("text-left");
+                classList.add("text-right");
+              }
+              // Adjust header alignment for logo/title
+              if (el.id === "main-header") {
+                el.querySelector("div.flex.justify-between").classList.add(
+                  "flex-row-reverse",
+                );
+              }
+            } else {
+              // When in LTR, elements marked as 'text-left-rtl' should be left-aligned
+              if (classList.contains("text-left-rtl")) {
+                classList.remove("text-right");
+                classList.add("text-left");
+              }
+              // Reset header alignment
+              if (el.id === "main-header") {
+                el.querySelector("div.flex.justify-between").classList.remove(
+                  "flex-row-reverse",
+                );
+              }
+            }
+          }
+        });
+
+        // Trigger a custom event for language change
+        document.dispatchEvent(
+          new CustomEvent("languageChange", { detail: { language: lang } }),
+        );
+
+        // Persist preference
+        localStorage.setItem("language", lang);
+      }
+
+      langToggle.addEventListener("click", () => {
+        const currentLang = langText.getAttribute("data-current-lang");
+        const newLang = currentLang === "en" ? "ar" : "en";
+        setLanguage(newLang);
+      });
+
+      // Initialize language from local storage or default to 'en'
+      const initialLang = localStorage.getItem("language") || "en";
+      setLanguage(initialLang);
+
+      // 2. Dark/Light Mode Logic
+      const themeToggle = document.getElementById("theme-toggle");
+      const sunIcon = document.getElementById("sun-icon");
+      const moonIcon = document.getElementById("moon-icon");
+
+      function setTheme(theme) {
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+          body.classList.add("dark");
+          moonIcon.classList.add("hidden");
+          sunIcon.classList.remove("hidden");
+        } else {
+          document.documentElement.classList.remove("dark");
+          body.classList.remove("dark");
+          moonIcon.classList.remove("hidden");
+          sunIcon.classList.add("hidden");
+        }
+        localStorage.setItem("theme", theme);
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = document.documentElement.classList.contains("dark")
+          ? "dark"
+          : "light";
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+      });
+
+      // Initialize theme from local storage or default to 'light'
+      const initialTheme =
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+      setTheme(initialTheme);
+
+      // 3. Countdown Timer Logic
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = EVENT_DATE - now;
+
+        if (distance < 0) {
+          // Event passed
+          document.getElementById("countdown").innerHTML =
+            `<div class="col-span-4 text-3xl font-bold text-e7a23a" data-en="Event is Live!" data-ar="الحدث مباشر الآن!">Event is Live!</div>`;
+          return;
+        }
+
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in elements
+        document.getElementById("days").textContent = String(days).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("hours").textContent = String(hours).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("minutes").textContent = String(
+          minutes,
+        ).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(
+          seconds,
+        ).padStart(2, "0");
+
+        // Set the labels based on current language
+        const currentLang = langText.getAttribute("data-current-lang");
+        document.getElementById("days-label").textContent = document
+          .getElementById("days-label")
+          .getAttribute(`data-${currentLang}`);
+        document.getElementById("hours-label").textContent = document
+          .getElementById("hours-label")
+          .getAttribute(`data-${currentLang}`);
+        document.getElementById("minutes-label").textContent = document
+          .getElementById("minutes-label")
+          .getAttribute(`data-${currentLang}`);
+        document.getElementById("seconds-label").textContent = document
+          .getElementById("seconds-label")
+          .getAttribute(`data-${currentLang}`);
+      }
+
+      // Run updateCountdown every 1 second
+      setInterval(updateCountdown, 1000);
+      // Run once immediately to prevent flicker
+      updateCountdown();
+
+      // 4. Mobile Menu Logic
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-nav-link");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        const isExpanded =
+          mobileMenuBtn.getAttribute("aria-expanded") === "true";
+        mobileMenuBtn.setAttribute("aria-expanded", !isExpanded);
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Close mobile menu when a link is clicked
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenuBtn.setAttribute("aria-expanded", "false");
+          mobileMenu.classList.add("hidden");
+        });
+      });
+
+      // 5. Scroll Progress Bar
+      window.addEventListener("scroll", () => {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-progress").style.width = scrolled + "%";
+      });
+
+      // 6. Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in");
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements with fade-in class
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 7. Sponsors Animation Enhancement
+      // The CSS animation handles the infinite scrolling with RTL support
+
+      // 8. Speakers "See More" Functionality
+      const seeMoreBtn = document.getElementById("see-more-speakers");
+      const speakers = document.querySelectorAll(
+        ".speaker-hidden, .speaker-visible",
+      );
+      let showingAllSpeakers = false;
+
+      seeMoreBtn.addEventListener("click", () => {
+        if (showingAllSpeakers) {
+          // Hide additional speakers (keep only first 3)
+          speakers.forEach((speaker, index) => {
+            if (index < 3) {
+              speaker.classList.remove("speaker-hidden");
+              speaker.classList.add("speaker-visible");
+            } else {
+              speaker.classList.remove("speaker-visible");
+              speaker.classList.add("speaker-hidden");
+            }
+          });
+
+          // Update button text
+          const currentLang = langText.getAttribute("data-current-lang");
+          seeMoreBtn.innerHTML = seeMoreBtn.getAttribute(`data-${currentLang}`);
+          showingAllSpeakers = false;
+        } else {
+          // Show all speakers
+          speakers.forEach((speaker) => {
+            speaker.classList.remove("speaker-hidden");
+            speaker.classList.add("speaker-visible");
+          });
+
+          // Update button text
+          const currentLang = langText.getAttribute("data-current-lang");
+          seeMoreBtn.innerHTML = currentLang === "en" ? "Show Less" : "عرض أقل";
+          showingAllSpeakers = true;
+        }
+      });
+
+      // 9. About Content "See More" Functionality
+      const seeMoreAboutBtn = document.getElementById("see-more-about");
+      const aboutContent = document.getElementById("about-content");
+      let showingFullAbout = false;
+
+      seeMoreAboutBtn.addEventListener("click", () => {
+        if (showingFullAbout) {
+          aboutContent.classList.remove("text-expanded");
+          aboutContent.classList.add("text-truncate");
+
+          // Update button text
+          const currentLang = langText.getAttribute("data-current-lang");
+          seeMoreAboutBtn.innerHTML = seeMoreAboutBtn.getAttribute(
+            `data-${currentLang}`,
+          );
+          showingFullAbout = false;
+        } else {
+          aboutContent.classList.remove("text-truncate");
+          aboutContent.classList.add("text-expanded");
+
+          // Update button text
+          const currentLang = langText.getAttribute("data-current-lang");
+          seeMoreAboutBtn.innerHTML =
+            currentLang === "en" ? "Show Less" : "عرض أقل";
+          showingFullAbout = true;
+        }
+      });
+
+      // Update button text when language changes
+      document.addEventListener("languageChange", (e) => {
+        const currentLang = e.detail.language;
+
+        // Update speakers button
+        if (showingAllSpeakers) {
+          seeMoreBtn.innerHTML = currentLang === "en" ? "Show Less" : "عرض أقل";
+        } else {
+          seeMoreBtn.innerHTML = seeMoreBtn.getAttribute(`data-${currentLang}`);
+        }
+
+        // Update about content button
+        if (showingFullAbout) {
+          seeMoreAboutBtn.innerHTML =
+            currentLang === "en" ? "Show Less" : "عرض أقل";
+        } else {
+          seeMoreAboutBtn.innerHTML = seeMoreAboutBtn.getAttribute(
+            `data-${currentLang}`,
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
